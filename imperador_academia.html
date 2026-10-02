@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Imperador Academia</title>
+
+<style>
+:root{
+    --green:#39ff14;
+    --green-dark:#20b80b;
+    --black:#070707;
+    --dark:#101010;
+    --card:#151515;
+    --line:#292929;
+    --gray:#a8a8a8;
+    --white:#fff;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:var(--black);
+    color:var(--white);
+    line-height:1.6;
+}
+
+header{
+    position:fixed;
+    top:0;
+    width:100%;
+    height:72px;
+    z-index:1000;
+    background:rgba(7,7,7,.96);
+    border-bottom:1px solid var(--line);
+}
+
+.nav{
+    max-width:1200px;
+    height:100%;
+    margin:auto;
+    padding:0 22px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.logo{
+    font-size:22px;
+    font-weight:900;
+    letter-spacing:1px;
+}
+.logo span{color:var(--green)}
+.logo small{display:block;font-size:9px;letter-spacing:4px;color:#999}
+
+nav{display:flex;gap:20px}
+nav a{
+    color:#ddd;
+    text-decoration:none;
+    font-size:13px;
+    font-weight:bold;
+}
+nav a:hover{color:var(--green)}
+
+.menu{
+    display:none;
+    border:0;
+    background:none;
+    color:var(--green);
+    font-size:28px;
+}
+
+.hero{
+    min-height:100vh;
+    padding:145px 7% 80px;
+    display:grid;
+    grid-template-columns:1.25fr .75fr;
+    gap:50px;
+    align-items:center;
+    background:
+        radial-gradient(circle at 80% 45%,rgba(57,255,20,.16),transparent 35%),
+        linear-gradient(135deg,#050505,#121212);
+}
+
+.tag{
+    color:var(--green);
+    font-size:12px;
+    font-weight:bold;
+    letter-spacing:3px;
+}
+
+.hero h1{
+    max-width:800px;
+    margin:18px 0;
+    font-size:clamp(46px,7vw,88px);
+    line-height:.94;
+    text-transform:uppercase;
+}
+
+.hero h1 span{color:var(--green);display:block}
+
+.hero p{
+    max-width:650px;
+    color:var(--gray);
+    font-size:17px;
+}
+
+.buttons{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px}
+
+.btn,.btn-outline{
+    display:inline-block;
+    padding:14px 24px;
+    text-decoration:none;
+    font-weight:800;
+    border-radius:4px;
+    transition:.25s;
+}
+
+.btn{background:var(--green);color:#000}
+.btn:hover{background:#fff;transform:translateY(-3px)}
+
+.btn-outline{border:1px solid var(--green);color:var(--green)}
+.btn-outline:hover{background:var(--green);color:#000}
+
+.hero-visual{
+    min-height:390px;
+    border:1px solid var(--line);
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    background:#0d0d0d;
+}
+
+.hero-visual:before{
+    content:"";
+    position:absolute;
+    width:300px;
+    height:300px;
+    border:2px solid var(--green);
+    transform:rotate(45deg);
+    box-shadow:0 0 70px rgba(57,255,20,.18);
+}
+
+.hero-logo{
+    position:relative;
+    z-index:2;
+    text-align:center;
+    font-size:30px;
+    font-weight:900;
+}
+.hero-logo span{display:block;color:var(--green);font-size:42px}
+
+.stats{
+    max-width:1050px;
+    margin:-35px auto 0;
+    position:relative;
+    z-index:5;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    background:#111;
+    border:1px solid var(--line);
+}
+
+.stat{
+    padding:25px 12px;
+    text-align:center;
+    border-right:1px solid var(--line);
+}
+.stat:last-child{border:0}
+.stat strong{display:block;color:var(--green);font-size:28px}
+.stat span{font-size:11px;color:#999}
+
+section{padding:90px 7%}
+
+.dark{background:#0d0d0d}
+
+.title{text-align:center;margin-bottom:45px}
+.title small{color:var(--green);letter-spacing:3px;font-weight:bold}
+.title h2{font-size:42px;margin-top:8px}
+.title p{color:#888;max-width:650px;margin:12px auto}
+
+.about{
+    max-width:1100px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:45px;
+    align-items:center;
+}
+.about p{color:#aaa;margin-bottom:18px}
+
+.about-box{
+    min-height:300px;
+    border:1px solid var(--line);
+    padding:35px;
+    background:#111;
+}
+.about-box div{
+    padding:18px 0;
+    border-bottom:1px solid #222;
+}
+.about-box strong{display:block;color:var(--green);font-size:20px}
+.about-box span{color:#888}
+
+.cards{
+    max-width:1100px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+}
+.card{
+    background:var(--card);
+    border:1px solid var(--line);
+    padding:28px;
+    transition:.25s;
+}
+.card:hover{border-color:var(--green);transform:translateY(-7px)}
+.card b{color:var(--green);font-size:12px}
+.card h3{margin:14px 0;font-size:21px}
+.card p{color:#888;font-size:14px}
+
+.plans{
+    max-width:1050px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+.plan{
+    background:#111;
+    border:1px solid var(--line);
+    padding:32px;
+}
+.plan.featured{border:2px solid var(--green);transform:translateY(-10px)}
+.plan label{color:var(--green);font-size:11px;font-weight:bold;letter-spacing:2px}
+.plan h3{font-size:26px;margin:12px 0}
+.price{font-size:42px;font-weight:900}
+.price small{font-size:15px;color:#999}
+.plan p{color:#888;margin:8px 0 25px}
+
+.classes{
+    max-width:900px;
+    margin:auto;
+}
+.class-row{
+    padding:22px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid var(--line);
+    background:#111;
+}
+.class-row span{color:#999;font-size:12px}
+.class-row h3{font-size:20px}
+.class-row strong{color:var(--green)}
+
+.team{
+    max-width:1000px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+}
+.person{
+    background:#111;
+    border:1px solid var(--line);
+    text-align:center;
+    padding:28px 12px;
+}
+.avatar{
+    width:75px;height:75px;
+    border-radius:50%;
+    margin:auto;
+    border:2px solid var(--green);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--green);
+    font-weight:900;
+}
+.person h3{margin-top:15px;font-size:16px}
+.person p{color:#888;font-size:13px}
+
+.schedule{
+    max-width:850px;
+    margin:auto;
+}
+.schedule div{
+    display:flex;
+    justify-content:space-between;
+    padding:20px;
+    border-bottom:1px solid var(--line);
+}
+.schedule strong{color:var(--green)}
+
+.location{
+    max-width:1050px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:30px;
+}
+.map{
+    min-height:330px;
+    background:
+      linear-gradient(25deg,transparent 48%,#222 49%,#222 51%,transparent 52%),
+      linear-gradient(115deg,transparent 48%,#222 49%,#222 51%,transparent 52%),
+      #111;
+    border:1px solid var(--line);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+.pin{
+    width:25px;height:25px;
+    border-radius:50%;
+    background:var(--green);
+    box-shadow:0 0 35px var(--green);
+}
+.location-info h3{font-size:30px;margin-bottom:15px}
+.location-info p{color:#999;margin-bottom:18px}
+
+.faq{
+    max-width:850px;
+    margin:auto;
+}
+.faq-item{border-bottom:1px solid var(--line)}
+.question{
+    width:100%;
+    background:none;
+    border:0;
+    color:#fff;
+    text-align:left;
+    padding:20px 5px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    display:flex;
+    justify-content:space-between;
+}
+.answer{
+    display:none;
+    color:#999;
+    padding:0 5px 20px;
+}
+.faq-item.open .answer{display:block}
+
+.contact{
+    max-width:1050px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:30px;
+    align-items:center;
+    background:#111;
+    border:1px solid var(--line);
+    padding:45px;
+}
+.contact h2{font-size:38px;margin:8px 0}
+.contact p{color:#999}
+
+footer{
+    text-align:center;
+    padding:35px 20px;
+    border-top:1px solid var(--line);
+    color:#777;
+}
+footer strong{color:var(--green)}
+
+.whatsapp{
+    position:fixed;
+    right:18px;
+    bottom:18px;
+    z-index:900;
+    background:var(--green);
+    color:#000;
+    text-decoration:none;
+    font-weight:900;
+    padding:13px 18px;
+    border-radius:4px;
+}
+
+@media(max-width:900px){
+    nav{
+        display:none;
+        position:absolute;
+        top:72px;
+        left:0;
+        width:100%;
+        background:#090909;
+        flex-direction:column;
+        padding:20px;
+        border-bottom:1px solid var(--line);
+    }
+    nav.open{display:flex}
+    .menu{display:block}
+    .hero{grid-template-columns:1fr}
+    .hero-visual{min-height:280px}
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .stat:nth-child(2){border-right:0}
+    .about,.location{grid-template-columns:1fr}
+    .cards{grid-template-columns:repeat(2,1fr)}
+    .team{grid-template-columns:repeat(2,1fr)}
+    .plans{grid-template-columns:1fr}
+    .plan.featured{transform:none}
+    .contact{grid-template-columns:1fr}
+}
+
+@media(max-width:560px){
+    section{padding:70px 5%}
+    .hero{padding:125px 5% 70px}
+    .hero h1{font-size:48px}
+    .stats,.cards,.team{grid-template-columns:1fr}
+    .stat{border-right:0;border-bottom:1px solid var(--line)}
+    .stat:last-child{border-bottom:0}
+    .title h2{font-size:32px}
+    .contact{padding:28px}
+    .schedule div,.class-row{gap:15px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="nav">
+    <div class="logo"><span>IMPERADOR</span><small>ACADEMIA</small></div>
+    <button class="menu" id="menuBtn">☰</button>
+    <nav id="menu">
+        <a href="#inicio">Início</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#servicos">Serviços</a>
+        <a href="#planos">Planos</a>
+        <a href="#aulas">Aulas</a>
+        <a href="#equipe">Equipe</a>
+        <a href="#horarios">Horários</a>
+        <a href="#localizacao">Localização</a>
+        <a href="#contato">Contato</a>
+    </nav>
+</div>
+</header>
+
+<section class="hero" id="inicio">
+<div>
+    <div class="tag">TREINE • EVOLUA • SUPERE</div>
+    <h1>SEU LIMITE <span>É O COMEÇO.</span></h1>
+    <p>Uma academia criada para quem quer transformar disciplina em evolução.</p>
+    <div class="buttons">
+        <a class="btn" href="#planos">CONHECER PLANOS</a>
+        <a class="btn-outline" href="#contato">FALE CONOSCO</a>
+    </div>
+</div>
+
+<div class="hero-visual">
+    <div class="hero-logo"><span>IMPERADOR</span>ACADEMIA</div>
+</div>
+</section>
+
+<div class="stats">
+<div class="stat"><strong>05:30</strong><span>ABERTURA</span></div>
+<div class="stat"><strong>3</strong><span>PLANOS</span></div>
+<div class="stat"><strong>3</strong><span>PROFESSORES</span></div>
+<div class="stat"><strong>6</strong><span>DIAS DE ATENDIMENTO</span></div>
+</div>
+
+<section id="sobre">
+<div class="title">
+<small>SOBRE A IMPERADOR</small>
+<h2>Mais que uma academia.</h2>
+<p>Um espaço para construir constância, força e evolução.</p>
+</div>
+
+<div class="about">
+<div>
+<p>A Imperador Academia oferece um ambiente moderno e organizado para quem busca melhorar seu condicionamento e manter uma rotina de exercícios.</p>
+<p>Conte com musculação, aulas coletivas e professores especializados para acompanhar sua jornada.</p>
+</div>
+
+<div class="about-box">
+<div><strong>FOCO</strong><span>Disciplina para continuar.</span></div>
+<div><strong>FORÇA</strong><span>Superação todos os dias.</span></div>
+<div><strong>EVOLUÇÃO</strong><span>Resultados construídos com constância.</span></div>
+</div>
+</div>
+</section>
+
+<section class="dark" id="servicos">
+<div class="title">
+<small>ESTRUTURA</small>
+<h2>O que você encontra</h2>
+</div>
+
+<div class="cards">
+<div class="card"><b>01</b><h3>Musculação</h3><p>Espaço para desenvolver força, resistência e condicionamento.</p></div>
+<div class="card"><b>02</b><h3>Funcional</h3><p>Treinos dinâmicos para trabalhar diferentes capacidades físicas.</p></div>
+<div class="card"><b>03</b><h3>Dança</h3><p>Aulas coletivas para movimentar o corpo de forma diferente.</p></div>
+<div class="card"><b>04</b><h3>Acompanhamento</h3><p>Professores especializados para auxiliar sua jornada.</p></div>
+</div>
+</section>
+
+<section id="planos">
+<div class="title">
+<small>PLANOS</small>
+<h2>Escolha seu plano</h2>
+</div>
+
+<div class="plans">
+<div class="plan">
+<label>MENSAL</label>
+<h3>Plano Mensal</h3>
+<div class="price"><small>R$</small> 75,00</div>
+<p>Flexibilidade para começar.</p>
+<a class="btn" href="#contato">ESCOLHER</a>
+</div>
+
+<div class="plan featured">
+<label>MAIS ESCOLHIDO</label>
+<h3>Plano Trimestral</h3>
+<div class="price"><small>R$</small> 64,99</div>
+<p>Por mês no plano trimestral.</p>
+<a class="btn" href="#contato">ESCOLHER</a>
+</div>
+
+<div class="plan">
+<label>MAIOR PERÍODO</label>
+<h3>Plano Semestral</h3>
+<div class="price"><small>R$</small> 59,99</div>
+<p>Por mês no plano semestral.</p>
+<a class="btn" href="#contato">ESCOLHER</a>
+</div>
+</div>
+</section>
+
+<section class="dark" id="aulas">
+<div class="title">
+<small>AULAS COLETIVAS</small>
+<h2>Movimente-se com a gente.</h2>
+</div>
+
+<div class="classes">
+<div class="class-row"><div><span>SEGUNDA</span><h3>Dança</h3></div><strong>19:00</strong></div>
+<div class="class-row"><div><span>SEGUNDA</span><h3>Funcional</h3></div><strong>19:00</strong></div>
+<div class="class-row"><div><span>QUARTA</span><h3>Dança</h3></div><strong>19:00</strong></div>
+<div class="class-row"><div><span>QUARTA</span><h3>Funcional</h3></div><strong>19:00</strong></div>
+</div>
+</section>
+
+<section id="equipe">
+<div class="title">
+<small>NOSSA EQUIPE</small>
+<h2>Profissionais</h2>
+</div>
+
+<div class="team">
+<div class="person"><div class="avatar">MC</div><h3>Matheus Carriele</h3><p>Professor especializado</p></div>
+<div class="person"><div class="avatar">YR</div><h3>Yure Raylan</h3><p>Professor especializado</p></div>
+<div class="person"><div class="avatar">EH</div><h3>Eudes Henrique</h3><p>Professor especializado</p></div>
+<div class="person"><div class="avatar">LG</div><h3>Lunna Gabriely</h3><p>Recepcionista</p></div>
+</div>
+</section>
+
+<section class="dark" id="horarios">
+<div class="title">
+<small>FUNCIONAMENTO</small>
+<h2>Horários</h2>
+</div>
+
+<div class="schedule">
+<div><span>SEGUNDA A SEXTA</span><strong>05:30 — 22:30</strong></div>
+<div><span>SÁBADO</span><strong>07:00 — 12:00</strong></div>
+<div><span>DOMINGO</span><strong>FECHADO</strong></div>
+</div>
+</section>
+
+<section id="localizacao">
+<div class="title">
+<small>LOCALIZAÇÃO</small>
+<h2>Onde estamos</h2>
+</div>
+
+<div class="location">
+<div class="map"><div class="pin"></div></div>
+<div class="location-info">
+<h3>Venha conhecer a Imperador.</h3>
+<p>Estamos esperando por você.</p>
+<p><strong>Endereço:</strong><br>Rua Doutor Martinele Cavalca, 1060</p>
+<a class="btn" href="https://www.google.com/maps" target="_blank">ABRIR GOOGLE MAPS</a>
+</div>
+</div>
+</section>
+
+<section class="dark">
+<div class="title">
+<small>DÚVIDAS</small>
+<h2>Perguntas frequentes</h2>
+</div>
+
+<div class="faq">
+<div class="faq-item">
+<button class="question">Quais são os horários? <span>+</span></button>
+<div class="answer">Segunda a sexta das 05:30 às 22:30. Sábado das 07:00 às 12:00. Domingo fechado.</div>
+</div>
+
+<div class="faq-item">
+<button class="question">Quais são os planos? <span>+</span></button>
+<div class="answer">Mensal R$ 75,00; trimestral R$ 64,99; semestral R$ 59,99.</div>
+</div>
+
+<div class="faq-item">
+<button class="question">Quando acontecem as aulas? <span>+</span></button>
+<div class="answer">Dança e funcional acontecem às segundas e quartas, às 19:00.</div>
+</div>
+
+<div class="faq-item">
+<button class="question">Quem são os professores? <span>+</span></button>
+<div class="answer">Matheus Carriele, Yure Raylan e Eudes Henrique.</div>
+</div>
+</div>
+</section>
+
+<section id="contato">
+<div class="contact">
+<div>
+<div class="tag">FALE CONOSCO</div>
+<h2>Comece sua evolução.</h2>
+<p>Entre em contato para conhecer os planos ou tirar suas dúvidas.</p>
+</div>
+
+<div class="buttons">
+<a class="btn" href="https://wa.me/558694352632" target="_blank">WHATSAPP</a>
+<a class="btn-outline" href="mailto:contato@imperadoracademia.com">E-MAIL</a>
+</div>
+</div>
+</section>
+
+<a class="whatsapp" href="https://wa.me/558694352632" target="_blank">WHATSAPP</a>
+
+<footer>
+<div class="logo"><span>IMPERADOR</span><small>ACADEMIA</small></div>
+<p>© <strong id="year"></strong> Imperador Academia. Todos os direitos reservados.</p>
+</footer>
+
+<script>
+const menuBtn = document.getElementById("menuBtn");
+const menu = document.getElementById("menu");
+
+menuBtn.addEventListener("click", () => {
+    menu.classList.toggle("open");
+});
+
+document.querySelectorAll("nav a").forEach(link => {
+    link.addEventListener("click", () => {
+        menu.classList.remove("open");
+    });
+});
+
+document.querySelectorAll(".faq-item").forEach(item => {
+    const button = item.querySelector(".question");
+
+    button.addEventListener("click", () => {
+        item.classList.toggle("open");
+        const symbol = button.querySelector("span");
+        symbol.textContent = item.classList.contains("open") ? "−" : "+";
+    });
+});
+
+document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
